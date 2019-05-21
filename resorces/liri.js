@@ -36,12 +36,34 @@ function liriRun(appCommand, userSearch) {
                     break;
             
             default:
-                console.log("Try again");
-        }; 
+                console.log("Please enter an executable command");
+        } 
+    };
+   
+
+    // Search function for spotify API
+    function getSpotify(songName) {
+    // id and secret for var spotify
+        var spotify  = new Spotify(keys.spotify);
+    // console.log("songName if not a song name: " + songName);
+     if (!songName) {
+        songName = "heart-shaped box";
+     };
+
+    spotify.search({ type: 'track', query: songName }, function (err, data) {
+        if(err) {
+            return console.log('Error Occurred: '+ err);
+        }
+
+        //console.log("Data for song search: " + data.tracks.items[0]);
+        // adding a line break for clarity of when search results begin
+        
+
+
     }
 
+    
 
 
 
 
-};
