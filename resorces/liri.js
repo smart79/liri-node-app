@@ -84,8 +84,7 @@ var getOMDB = function(movieName) {
       
         var urlHit = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=full&tomatoes=true&apikey=trilogy";
       
-        axios.get(urlHit).then(
-          function(response) {
+        axios.get(urlHit).then(function(response) {
             var jsonData = response.data;
       
             console.log("Title: " + jsonData.Title);
@@ -97,10 +96,22 @@ var getOMDB = function(movieName) {
             console.log("Plot: " + jsonData.Plot);
             console.log("Actors: " + jsonData.Actors);
             console.log("Rotten Tomatoes Rating: " + jsonData.Ratings[1].Value);
-          }
-        );
+          });
       };
-      
+// 8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+// Random Function
+var getRandom = function() {
+        fs.readFile("random.txt", "utf8", function(error, data) {
+          if (error) {
+                return console.log(data);
+          } else {
+                console.log(data);
+
+                var randomData = data.split(",");
+                liriRun(randomData[0], randomData[1]);
+          }     
+        });
+      };
 
 // arguments entered by user //
 var appCommand = process.argv[2];
@@ -119,11 +130,11 @@ function liriRun(appCommand, userSearch) {
                     getSpotify(userSearch);
                     break;
             
-            case "movie-this":
+            case "concert-this":
                     getOMDB(userSearch);
                     break;
              
-            case "concert-this":
+            case "movie-this":
                     getBandsInTown(userSearch);
                     break;
 
