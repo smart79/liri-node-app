@@ -41,7 +41,7 @@ var spotify = new Spotify(keys.spotify);
   );
 };
         // append text in log.txt file
-         var logSong = "======Begin Spotify Log Entry======" + "\nArtist: " + data.tracks.items[0].album.artist.name + "\r\n";
+         var logSong = "======Begin Music Log Entry======" + "\nArtist: " + data.tracks.items[0].album.artist.name + "\r\n";
          fs.appendFile("log.txt", logSong, function (err){
                  if (err) throw err;
          });
@@ -68,9 +68,9 @@ var artist  = userSearch;
         console.log("Venue location: " + response.data[0].venue.city + "\r\n");
         // return date
         console.log("Date of event: " + moment(response.data[0].datetime).format("MM-DD-YYYY") + "\r\n");
-        // append txt to log.txt
-        var logConcert = "======Begin BandsInTown Log Entry======" + "\nArtist: " + data.tracks.items[0].album.artist.name + "\r\n";
-        fs.appendFile("log.txt", logConcert, function (err){
+       // append text in log.txt file
+        var logEvent = "======Begin Events Log Entry======" + "\nEvent: " + data.venue.items[0].city.artist.datetime + "\r\n";
+        fs.appendFile("log.txt", logEvent, function (err){
                 if (err) throw err;
         });
    });
@@ -96,8 +96,13 @@ var getOMDB = function(movieName) {
             console.log("Plot: " + jsonData.Plot);
             console.log("Actors: " + jsonData.Actors);
             console.log("Rotten Tomatoes Rating: " + jsonData.Ratings[1].Value);
-          });
-      };
+        // append text in log.txt file
+        var logMovie = "======Begin Movies Log Entry======" + "\nMovie: " + data.Title.items[0].name + "\r\n";
+        fs.appendFile("log.txt", logMovie, function (err){
+                  if (err) throw err;    
+                });
+             });
+        };
 // 8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
 // Random Function
 var getRandom = function() {
@@ -112,7 +117,11 @@ var getRandom = function() {
           }     
         });
       };
-
+// append results from the other functions
+var logData = "======Begin Data Log Entry======" + "\nData: " + data[0].items + "\r\n";
+        fs.appendFile("log.txt", logData, function (err){
+                  if (err) throw err;   
+        });
 // arguments entered by user //
 var appCommand = process.argv[2];
 // console.log("appCommand");
@@ -147,6 +156,6 @@ function liriRun(appCommand, userSearch) {
         } 
     };
    
-
+liriRun(appCommand, userSearch);
             
 
