@@ -1,5 +1,5 @@
 // .env to make keys not visible//
-require('dotenv').config();
+require("dotenv").config();
 // acessing project keys and creating variables for the required packages//
 var Spotify = require("node-spotify-api");
 var keys = require("./keys.js");
