@@ -1,5 +1,5 @@
 // .env to make keys not visible//
-require("dotenv").config();
+require('dotenv').config();
 // acessing project keys and creating variables for the required packages//
 var Spotify = require("node-spotify-api");
 var keys = require("./keys.js");
@@ -9,6 +9,7 @@ var moment = require("moment");
 
 // initializing the spotify API
 var spotify = new Spotify(keys.spotify);
+      
 // Search function for spotify API
     function getSpotify(songName) {
     
@@ -105,57 +106,48 @@ var getOMDB = function(movieName) {
         };
 // 8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
 // Random Function
-var getRandom = function() {
+var doWhatItSays = function() {
         fs.readFile("random.txt", "utf8", function(error, data) {
-          if (error) {
-                return console.log(data);
-          } else {
-                console.log(data);
-
-                var randomData = data.split(",");
-                liriRun(randomData[0], randomData[1]);
-          }     
+          console.log(data);
+      
+          var dataArr = data.split(",");
+      
+          if (dataArr.length === 2) {
+            selector(dataArr[0], dataArr[1]);
+          }
+          else if (dataArr.length === 1) {
+            selector(dataArr[0]);
+          }
         });
       };
-// append results from the other functions
-var logData = "======Begin Data Log Entry======" + "\nData: " + data[0].items + "\r\n";
-        fs.appendFile("log.txt", logData, function (err){
-                  if (err) throw err;   
-        });
-// arguments entered by user //
-var appCommand = process.argv[2];
-// console.log("appCommand");
-
-// Slice Method//
-var userSearch = process.argv.slice(3).join(" ");
-// console.log("search: "+ search);
-
-// Switch Statement for executing proper command based off user search input.//
-function liriRun(appCommand, userSearch) {
-    
-        switch (appCommand) {
-            
-            case "spotify-this-song":
-                    getSpotify(userSearch);
-                    break;
-            
-            case "concert-this":
-                    getOMDB(userSearch);
-                    break;
-             
-            case "movie-this":
-                    getBandsInTown(userSearch);
-                    break;
-
-            case "do-what-it-says":
-                    getRandom();
-                    break;
-            
-            default:
-                console.log("Please enter an executable command");
-        } 
-    };
-   
-liriRun(appCommand, userSearch);
-            
+      
+      // Function for determining which command is executed
+      var selector = function(caseData, userSearch) {
+        switch (caseData) {
+        case "concert-this":
+        getBandsInTown(userSearch);
+          break;
+        case "spotify-this-song":
+          getSpotify(userSearch);
+          break;
+        case "movie-this":
+          getOMDB(userSearch);
+          break;
+        case "do-what-it-says":
+          doWhatItSays();
+          break;
+        default:
+          console.log("");
+        }
+      };
+      
+      // Function which takes in command line arguments and executes correct function accordingly
+      var runThis = function(argOne, argTwo) {
+        selector(argOne, argTwo);
+      };
+      
+      // MAIN PROCESS
+      // =====================================
+      runThis(process.argv[2], process.argv.slice(3).join(" "));
+      
 
