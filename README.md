@@ -21,3 +21,4 @@ ____________________________________
 -Your personal Spotify ID and Spotify Secret just replaces <your-spotify-id> and <your-spotify-secret> respectively right after the equal sign with no extra spaces.
 
 Video Tutorial Link:
+https://drive.google.com/file/d/1r58T2TH-UIXZ5bctEJMk14Z1qP1XSxPf/view
